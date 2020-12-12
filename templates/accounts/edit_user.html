@@ -1,0 +1,51 @@
+{% extends 'site.html' %}
+{% block site_content %}
+    <h1 class="text-center" style="padding-bottom: 3%; margin-top: 10%">Edit</h1>
+    <div class="col" style="margin-left: 37%; color: white">
+        <div class="col-lg-3">
+            <form method="post" action="{% url 'edit user' user.pk %}"
+                  enctype="multipart/form-data" class="w-100 m-auto" method="post"
+                  style="border: 1px solid grey;border-radius: 25px; padding: 5% 5%; background: blueviolet ">
+                {% csrf_token %}
+                <label> Username:
+                    {{ form.username }}
+                </label>
+                <label> First name:
+                    {{ form.first_name }}
+                </label>
+                <label> Last name:
+                    {{ form.last_name }}
+                </label>
+                <label> Email address:
+                    {{ form.email }}
+                </label>
+                <div>
+                    <br>
+                    <div class="row" style="margin-left: -0.5em">
+                        <div class="m-2">
+                            <button class="btn btn-primary mt-2" style="width: 95px" type="submit">Save</button>
+                        </div>
+                        <div class="m-2">
+                            <a class="btn btn-primary mt-2 " style="width: 99px" href="javascript:history.back()">Cancel</a>
+                        </div>
+                        <div class="m-2">
+                            <a class="btn btn-primary mt-2 " style="width: 140%" href="{% url 'change_password' %} }">Change password</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-3"></div>
+    </div>
+
+    <script>
+        function updateImage() {
+            var img = document.getElementById('img_preview');
+            var url = this.value;
+            img.src = url;
+        }
+
+        document.getElementById('img_input')
+            .addEventListener('input', updateImage);
+    </script>
+{% endblock site_content %}

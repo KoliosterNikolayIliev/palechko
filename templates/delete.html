@@ -1,0 +1,21 @@
+{% extends 'site.html' %}
+{% block site_content %}
+    <div class="row" style="padding-top: 25%">
+        <div class="col-lg-12 text-center">
+            <h1>Are you sure you want to delete {{ item.name }}?</h1>
+            <div class="m-auto d-flex justify-content-center">
+                <div class="m-2">
+                    <form method="post" action="{% url 'delete' item.id %}">
+                        {% csrf_token %}
+                        <button class="btn btn-danger" style="width: 120px">
+                            Confirm
+                        </button>
+                    </form>
+                </div>
+                <div class="m-2">
+                    <a class="btn btn-success" style="width: 120px" href="javascript:history.back()">No, go back</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock site_content%}

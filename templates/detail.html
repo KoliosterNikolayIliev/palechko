@@ -1,0 +1,66 @@
+{% extends 'site.html' %}
+{% block site_content %}
+    <div class="container text-center" style="width: 60rem;height: 40rem; margin-bottom: 2%; margin-left: 4%">
+        <img src="{{ item.image.url }}" alt="No image !" style="width: 60rem;height: 40rem">
+    </div>
+    <div class="container" style="margin-left: 37%">
+    {% if can_delete and can_edit %}
+        <div>
+            <a href="{% url 'edit' item.pk %}" class="btn btn-success " style="width: 90px">Edit</a>
+            <a href="{% url 'delete' item.pk %}" class="btn btn-danger" style="width: 90px">Delete</a>
+        </div>
+        <br>
+    {% else %}
+        {% if has_liked %}
+            <a style="color: orange" href="{% url 'like' item.id %}"><i class="fas fa-thumbs-up fa-7x"
+                                                  aria-hidden="true">{{ item.like_set.count }}</i></a>
+        {% else %}
+            <a style="color: orange" href="{% url 'like' item.id %}"><i class="far fa-thumbs-up fa-7x"
+                                                  aria-hidden="true">{{ item.like_set.count }}</i></a>
+        {% endif %}
+    {% endif %}
+    </div>
+    <div class="container" style="background-color: blueviolet;color: white; padding:2%; border: 1px solid grey;border-radius: 25px; margin-top: 2%">
+    <div class="row">
+            <div class="col-sm">
+                <h5><u>Category:</u> {{ item.category }}</h5>
+            </div>
+            <div class="col-sm">
+                <h5><u>Name:</u> {{ item.name }}</h5>
+            </div>
+            <div class="col-sm"><i class="far fa-thumbs-up fa-2x" aria-hidden="true">{{ item.like_set.count }}</i></div>
+            <div class="col-sm">
+                <h5><u>Creator:</u> <a style="color: white" href="{% url 'user profile' item.user_id %}">{{ item.user.username }}</a></h5>
+            </div>
+            <div class="col-sm">
+                <h5><u>Date created:</u> {{ item.date_created|date:"D, d, M, Y" }}</h5>
+            </div>
+        </div>
+        <div class="text fieldBox">
+            <p class="mt-6">About: {{ item.description }}</p>
+        </div>
+        {% if item.comment_set.count > 0 %}
+            {% for comment in item.comment_set.all %}
+                <div class="box">
+                    <a href="{% url 'user profile' comment.user.id %}">{{ comment.user }}</a>
+                    <h5><em>{{ comment.text }}</em></h5>
+                    <hr>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="box">
+                <h3>There are no comments for this {% if item.type == 'pic' %} Drawing{% else %} Hand made
+                    model{% endif %}. </h3>
+            </div>
+        {% endif %}
+        <div class="box">
+            {% if can_comment %}
+                <form method="post" action="{% url 'details' item.pk %}">
+                    {{ form }}
+                    {% csrf_token %}
+                    <button class="btn btn-primary mt-2" type="submit">Add comment</button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+{% endblock site_content %}

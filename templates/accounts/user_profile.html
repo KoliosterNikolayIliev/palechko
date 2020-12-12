@@ -1,0 +1,211 @@
+{% extends 'site.html' %}
+{% load static %}
+{% block site_content %}
+    {% if user.id == profile_user.id %}
+        <div class="text-center">
+            <h1 style="margin-top: 10%">Hello, {{ profile_user.username }}!</h1>
+            <label>
+                {% if profile_user.userprofile.profile_picture %}
+
+                    <img class="rounded-circle mb-3" src="{{ profile_user.userprofile.profile_picture.url }}"
+                         alt="Generic placeholder image" width="140"
+                         height="140" style="cursor: pointer">
+
+                {% else %}
+                    <img class="rounded-circle mb-3" src="{% static '/users.png' %}" alt="Generic placeholder image"
+                         width="140"
+                         height="140" style="cursor: pointer">
+                {% endif %}
+
+                <form action="{% url 'current user profile' %}" method="post" enctype="multipart/form-data"
+                      class="furniture-form" style="display: none">
+                    {{ form.profile_picture }}
+                    {% csrf_token %}
+                </form>
+            </label>
+        </div>
+        <h6 style="text-align: center">Click on the picture to change it.</h6>
+        <br>
+        <br>
+        <div class="container" style="margin-left: 25%">
+            <div class="col-sm"
+                 style="background-color: blueviolet;color: white; padding:2%; border: 1px solid grey;border-radius: 25px; width: 500px">
+                <div class="col">
+                    <h4 style="margin-right: 6%">User data</h4>
+                    <div class="row">
+                        <h5><u>Username: </u> {{ user.username }}</h5>
+                    </div>
+                    <div class="row">
+                        <h5><u>Name:</u> {{ user.first_name }} {{ user.last_name }}</h5>
+                    </div>
+                    <div class="row">
+                        <h5><u>E-mail: </u> {{ user.email }}</h5>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-md-6" style="width: 120px !important;">
+                            <a href="{% url 'edit user' user.pk %}" class="btn btn-success btn-block">Edit</a>
+                        </div>
+                        <div class="col-12 col-md-6" style="width: 120px !important;">
+                            <a href="{% url 'delete user' user.pk %}" class="btn btn-danger btn-block">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="text-center">
+            <h1 style="margin-top: 10%">All photos of {{ profile_user.username }}!</h1>
+            {% if profile_user.userprofile.profile_picture %}
+                <img class="rounded-circle mb-3" src="{{ profile_user.userprofile.profile_picture.url }}"
+                     alt="Generic placeholder image" width="140"
+                     height="140">
+            {% else %}
+                <img class="rounded-circle mb-3" src="{% static '/users.png' %}" alt="Generic placeholder image"
+                     width="140"
+                     height="140">
+            {% endif %}
+            <h1>{{ profile_user.username }}'s profile!</h1>
+        </div>
+        <div class="container" style="margin-left: 25%">
+
+            <div class="text-center"
+                 style="background-color: blueviolet;color: white; padding:2%; border: 1px solid grey;border-radius: 25px; width: 500px">
+                <div class="col">
+                    <h4 style="margin-right: 6%">User data</h4>
+                    <div class="row">
+                        <h5><u>Username: </u> {{ profile_user.username }}</h5>
+                    </div>
+                    <div class="row">
+                        <h5><u>Name:</u> {{ profile_user.first_name }} {{ profile_user.last_name }}</h5>
+                    </div>
+                    <div class="row">
+                        <h5><u>E-mail: </u> {{ profile_user.email }}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if messages %}
+        <div class="messages text-center">
+            {% for message in messages %}
+                <b style="color: green;" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</b>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <br>
+
+
+    <div class="container">
+        {% if items %}
+            <div class="container">
+                <div class="col-auto">
+                    <ul class="nav nav-pills nav-fill border" style="background: blueviolet; border-radius: 5px">
+                        {% if pic_count > 0 %}
+                            <li class="nav-item">
+                                <a class="nav-link" id="myLINK_draw" href="#"
+                                   onclick="myFunction_draw();">{{ profile_user.username }}'s drawings,
+                                    Count: {{ pic_count }}</a>
+                            </li>
+                        {% endif %}
+                        {% if mod_count > 0 %}
+                            <li class="nav-item">
+                                <a class="nav-link" id="myLINK_mod" href="#"
+                                   onclick="myFunction_mod()">{{ profile_user.username }}'s hand made models,
+                                    Count: {{ mod_count }}</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <div class="container">
+                    <div class="row" id="myDIV" style="display: none">
+                        <div class="row">
+                            {% for item in items %}
+                                {% if item.type == 'pic' %}
+                                    <div class="col-lg-4">
+                                        <div class="card" style="width: 22rem;">
+                                            <a href="{% url 'details' item.id %}"><img src="{{ item.image.url }}"
+                                                                                       class="card-img-top"
+                                                                                       alt="..."></a>
+                                            <div class="card-body">
+                                                <h5 class="card-title">Name: {{ item.name }}</h5>
+                                                <h5 class="card-title">
+                                                    Created: {{ item.date_created|date:"d ,D, M, Y" }}</h5>
+                                            </div>
+                                        </div>
+                                        <br>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row" id="myDIV2" style="display: none">
+                        <div class="row">
+                            {% for item in items %}
+                                {% if item.type == 'mod' %}
+                                    <div class="col-lg-4">
+                                        <div class="card" style="width: 22rem;">
+                                            <a href="{% url 'details' item.id %}"><img src="{{ item.image.url }}"
+                                                                                       class="card-img-top"
+                                                                                       alt="..."></a>
+                                            <div class="card-body">
+                                                <h5 class="card-title">Name: {{ item.name }}</h5>
+                                                <h5 class="card-title">
+                                                    Created: {{ item.date_created|date:"d ,D, M, Y" }}</h5>
+                                            </div>
+                                        </div>
+                                        <br>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="text-center">
+                <h2 style="margin-right: 1%">You have nothing uploaded</h2>
+                <a style="margin-right: 3%" href="{% url 'create' %}" class="btn btn-success">Upload drawing or
+                    hand-made model</a>
+            </div>
+        {% endif %}
+
+        <script>function myFunction_draw() {
+            var x = document.getElementById("myDIV");
+            var y = document.getElementById("myDIV2");
+            var z = document.getElementById("myLINK_draw");
+            var w = document.getElementById("myLINK_mod");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+                y.style.display = "none";
+                z.className = "nav-link active";
+                w.className = "nav-link";
+            } else {
+                x.style.display = "none";
+                z.className = "nav-link";
+
+            }
+        }
+        </script>
+
+        <script>function myFunction_mod() {
+            var x = document.getElementById("myDIV2");
+            var y = document.getElementById("myDIV");
+            var z = document.getElementById("myLINK_mod");
+            var w = document.getElementById("myLINK_draw");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+                y.style.display = "none";
+                z.className = "nav-link active";
+                w.className = "nav-link";
+            } else {
+                x.style.display = "none";
+                z.className = "nav-link";
+            }
+        }
+        </script>
+    </div>
+{% endblock site_content %}

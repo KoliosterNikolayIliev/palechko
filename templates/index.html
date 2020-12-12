@@ -1,0 +1,47 @@
+{% extends 'site.html' %}
+{% block site_content %}
+    <h1 class="display-4 text-center"><i class="fas fa-paint-brush"></i> Welcome to Palechko!<i class="fas fa-cut"></i>
+    </h1>
+    <h4 class="text-center"> The home of little artists </h4>
+    {% if top_ten %}
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                {% for i in n %}
+                    {% if i == 0 %}
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    {% else %}
+                        <li data-target="#carouselExampleIndicators" data-slide-to="{{ i }}"></li>
+                    {% endif %}
+                {% endfor %}
+            </ol>
+            <div class="carousel-inner container d-flex align-items-center"
+                 style="width: 1280px !important; height: 720px !important;">
+                {% for item in top_ten %}
+                    <div class="carousel-item {% if forloop.first == 1 %}active{% endif %}" data-interval="10000">
+                        <img src="{{ item.image.url }}" class="d-block w-100 h-100 " alt="...">
+                        <div class="carousel-caption d-none d-md-block" style="text-align: left;">
+                            <p style="margin-bottom: 50px"><a href="{% url 'details' item.id %}" style="color: blueviolet"><i
+                                    class="fas fa-thumbs-up fa-2x"
+                                    aria-hidden="true">{{ item.like_set.count }}</i></a></p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+        <div class="absolute">
+
+            <p class="text-center h4">Current top {{ n.stop }} !</p>
+            <div class="text-center">
+                <br><br>
+            </div>
+        </div>
+    {% endif %}
+{% endblock site_content %}

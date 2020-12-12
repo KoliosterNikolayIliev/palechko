@@ -1,0 +1,35 @@
+{% extends 'site.html' %}
+
+{% block site_content %}
+    <br>
+    <br>
+    <br>
+    <div class="container" style="text-align: center; color: white">
+        <form class="w-50 m-auto" method="post" style="border: 1px solid grey;border-radius: 25px; margin: 10% 0%; padding: 5% 5%; background: blueviolet "
+              action="{% url 'login' %}">
+            <h2>Login</h2>
+            <br>
+            {% csrf_token %}
+            <div>
+                <div style="margin-right: 29%">
+                <label>Username:</label>
+                </div>
+                {{ form.username }}
+            </div>
+            <br>
+            <div>
+                <div style="margin-right: 29%">
+                <label>Password:</label>
+                </div>
+                {{ form.password }}
+            </div>
+            <p></p>
+            <div>
+                <button type="submit" class="btn btn-primary">Login</button>
+                <br>
+                <br>
+                <span style="margin-left: 10px">You don't have an account? <a style="color: orange" href="{% url 'signup user' %}">Register</a></span>
+            </div>
+        </form>
+    </div>
+{% endblock site_content %}
