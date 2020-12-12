@@ -25,7 +25,11 @@ SECRET_KEY = ')^gbn#h02h1q8m**=&_u-g&rucu^+0msq&33zm2-m4sqtjj2kj'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    'palechko.herokuapp.com',
+]
 
 # Application definition
 
