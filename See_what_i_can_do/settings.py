@@ -23,13 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = ')^gbn#h02h1q8m**=&_u-g&rucu^+0msq&33zm2-m4sqtjj2kj'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', True)
 
-ALLOWED_HOSTS = [
-    'localhost',
-    '127.0.0.1',
-    'palechko.herokuapp.com',
-]
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(' ')
 
 # Application definition
 
@@ -132,4 +128,3 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = join(BASE_DIR, 'media')
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
-
