@@ -7,28 +7,28 @@
             <li class="nav-item ">
                 <a class="nav-link  {% if request.resolver_match.url_name == 'index' %}active{% endif %}"
                    {% if request.resolver_match.url_name == 'index' %}style="background: beige;border-color: #dee2e6 #dee2e6 beige;"
-                   {% else %}style="color: lime"{% endif %}
+                   {% else %}style="color: lime;font-weight: bold;"{% endif %}
                    href="/"><i class="fas fa-home fa-2x"></i>
                     Home</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link {% if request.resolver_match.url_name == 'list pics' %}active{% endif %}"
                    {% if request.resolver_match.url_name == 'list pics' %}style="background: beige;border-color: #dee2e6 #dee2e6 beige;"
-                   {% else %}style="color: yellow;"{% endif %}
+                   {% else %}style="color: yellow;font-weight: bold;"{% endif %}
                    href="{% url 'list pics' %}"><i class="fas fa-palette fa-2x"></i>
                     Drawings</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link {% if request.resolver_match.url_name == 'list mods' %}active{% endif %}"
                    {% if request.resolver_match.url_name == 'list mods' %}style="background: beige;border-color: #dee2e6 #dee2e6 beige;"
-                   {% else %}style="color: orange"{% endif %}
+                   {% else %}style="color: orange;font-weight: bold;"{% endif %}
                    href="{% url 'list mods' %}"><i class="fas fa-democrat fa-2x"></i>
                     Hand-made models</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link {% if request.resolver_match.url_name == 'create' %}active{% endif %}"
                    {% if request.resolver_match.url_name == 'create' %}style="background: beige;border-color: #dee2e6 #dee2e6 beige;"
-                   {% else %}style="color: orangered"{% endif %}
+                   {% else %}style="color: orangered;font-weight: bold;"{% endif %}
                    href="{% url 'create' %}"><i class="fas fa-rocket fa-2x"></i>
                     Upload image</a>
             </li>
@@ -37,7 +37,7 @@
                     <li class="nav-item">
                         <a class="nav-link {% if request.resolver_match.url_name == 'user profile' %}active{% endif %}"
                            {% if request.resolver_match.url_name == 'user profile' %}style="background: beige;border-color: #dee2e6 #dee2e6 beige;"
-                           {% else %}style="color: lightgreen"{% endif %}
+                           {% else %}style="color: lightgreen;font-weight: bold;"{% endif %}
                            href="{% url 'user profile' user.id %}"><i
                                 class="fas fa-user-astronaut fa-2x"></i> Hello {{ user.username }}&nbsp;&nbsp
 
@@ -45,18 +45,18 @@
                     </li>
                 {% if user.is_staff %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'admin:index' %}"><i class="fas fa-tools fa-2x"></i> Admin-site&nbsp;&nbsp;</a>
+                        <a class="nav-link" style="font-weight: bold;color: white" href="{% url 'admin:index' %}"><i class="fas fa-tools fa-2x"></i> Admin-site&nbsp;&nbsp;</a>
                     </li>
                 {% endif %}
 
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tooltip" data-placement="down" title="Logout"
+                    <a style="font-weight: bold;color: white" class="nav-link" data-toggle="tooltip" data-placement="down" title="Logout"
                        href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa-2x"></i>
                     </a>
                 </li>
             {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tooltip" data-placement="down" title="Login"
+                    <a style="font-weight: bold;color: white" class="nav-link" data-toggle="tooltip" data-placement="down" title="Login"
                        href="{% url 'login' %}"><i class="fas fa-sign-in-alt fa-2x"></i>
                     </a>
                 </li>
