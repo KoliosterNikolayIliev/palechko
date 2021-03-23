@@ -14,7 +14,9 @@ from os.path import join
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+import cloudinary
 import django_heroku
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,9 +27,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = ')^gbn#h02h1q8m**=&_u-g&rucu^+0msq&33zm2-m4sqtjj2kj'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG',None)
+DEBUG = os.environ.get('DEBUG', None)
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(' ')
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(' ')
 
 # Application definition
 
@@ -132,3 +134,10 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 django_heroku.settings(locals())
+
+cloudinary.config(
+    cloud_name='hsndtrf2d',
+    api_key='848532167167927',
+    api_secret='WBTANJ9BDTyvKT9NKY-r36c96Oo',
+
+)
