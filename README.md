@@ -12,3 +12,5 @@ The site is divided in two categories:
 
 If a user wants to upload, edit and like the content he needs to be a registered user.
 
+URL(still in development phase): http://palechko.herokuapp.com/
+
