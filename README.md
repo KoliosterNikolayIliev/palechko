@@ -1,5 +1,5 @@
-# See_what_i_can_do !
- {Palechko is the name :) }
+# Palechko (SoftUni Django course project)
+
 
 Website for kids art (pictures, hand made things etc.)
 
