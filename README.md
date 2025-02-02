@@ -11,5 +11,3 @@ The site is divided in two categories:
  - All registered users can edit or delete their profiles or content. 
 
 If a user wants to upload, edit and like the content he needs to be a registered user.
-
-URL(still in development phase): http://palechko.herokuapp.com/
